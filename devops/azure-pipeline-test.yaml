@@ -1,0 +1,17 @@
+trigger:
+- test
+
+pool: dev-2
+
+variables:
+  env : test
+
+steps:
+
+
+- script: |    
+    docker build -f devops/Dockerfile -t synkaa-websocket-test .
+    docker stop synkaa-websocket-test &> /dev/null && docker rm synkaa-websocket-test &> /dev/null && echo "image stopped"
+    docker run -d  --name synkaa-websocket-test -p 8511:2222 synkaa-websocket-test
+
+#sed -i 's/environment/$(env)/g' ./devops/helm-charts/backend-ms/Dockerfile

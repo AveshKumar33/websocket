@@ -1,0 +1,16 @@
+trigger:
+- dev
+
+pool: dev-4
+
+variables:
+  - group: varsdev
+
+steps:
+- script: |
+
+
+    cat ./devops/Dockerfile
+    docker build -f devops/Dockerfile -t synkaa-websocket-dev .
+    docker stop synkaa-websocket-dev &> /dev/null && docker rm synkaa-websocket-dev &> /dev/null && echo "image stopped"
+    docker run -d  --name synkaa-websocket-dev -p 8510:2222 synkaa-websocket-dev

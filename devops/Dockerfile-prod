@@ -1,0 +1,13 @@
+FROM node:18.16.0-alpine
+WORKDIR /app
+COPY . /app
+
+EXPOSE 2222
+RUN npm install
+
+#CMD ["npm","run", "start"]
+
+
+
+CMD APP_REQUEST_URL=https://api.synkaa.com/synkaa-app/api/users/webhookdev node /app/main.js
+#CMD ["node", "/app/main.js"]
